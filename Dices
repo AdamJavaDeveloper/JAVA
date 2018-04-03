@@ -1,0 +1,158 @@
+import java.util.Arrays;
+
+public class Dices {
+
+	public int dic(int... A) {
+
+		int[] C = { 0, 0, 0, 0, 0, 0 };
+
+		for (int i = 0; i < A.length; i++) {
+
+			if (A[i] == 1)
+				C[0] = C[0] + 1;
+			if (A[i] == 2)
+				C[1] = C[1] + 1;
+			if (A[i] == 3)
+				C[2] = C[2] + 1;
+			if (A[i] == 4)
+				C[3] = C[3] + 1;
+			if (A[i] == 5)
+				C[4] = C[4] + 1;
+			if (A[i] == 6)
+				C[5] = C[5] + 1;
+		}
+
+		boolean a = false;
+		boolean b = false;
+		boolean c = false;
+		int minA = 0;
+		int maxA = 0;
+		int minB = 0;
+		int maxB = 0;
+		int minC = 0;
+		int maxC = 0;
+
+		int minAB = 0;
+		int maxAB = 0;
+		int minAC = 0;
+		int maxAC = 0;
+		int minBC = 0;
+		int maxBC = 0;
+		int maxAsingle = 0;
+		int maxBsingle = 0;
+		int maxCsingle = 0;
+		int maxABCsingle = 0;
+		int maxABCall = 0;
+		int minABCall = 0;
+		int minABCpara = 0;
+		int maxABCpara = 0;
+		int suma = 0;
+		int result = 0;
+
+		minA = C[0];
+		if (C[0] > C[5])
+			minA = C[5];
+		maxA = C[0];
+		if (C[0] < C[5])
+			maxA = C[5];
+
+		minB = C[1];
+		if (C[1] > C[4])
+			minB = C[4];
+		maxB = C[1];
+		if (C[1] < C[4])
+			maxB = C[4];
+
+		minC = C[2];
+		if (C[2] > C[3])
+			minC = C[3];
+		maxC = C[2];
+		if (C[2] < C[3])
+			maxC = C[3];
+
+		maxAB = maxA;
+		if (maxB > maxA)
+			maxAB = maxB;
+		minAB = minA;
+		if (minB < minA)
+			minAB = minB;
+
+		maxAC = maxA;
+		if (maxC > maxA)
+			maxAC = maxC;
+		minAC = minA;
+		if (minC < minA)
+			minAC = minC;
+
+		maxBC = maxB;
+		if (maxC > maxB)
+			maxBC = maxC;
+		minBC = minB;
+		if (minC < minB)
+			minAB = minC;
+
+		if (maxA == 0 ^ minA == 0)
+			a = true;
+		if (maxB == 0 ^ minB == 0)
+			b = true;
+		if (maxC == 0 ^ minC == 0)
+			c = true;
+
+		if (a == true)
+			maxAsingle = maxA;
+		if (b == true)
+			maxBsingle = maxB;
+		if (c == true)
+			maxCsingle = maxC;
+
+		maxABCsingle = maxAsingle;
+		if (maxABCsingle < maxBsingle)
+			maxABCsingle = maxBsingle;
+		if (maxABCsingle < maxCsingle)
+			maxABCsingle = maxCsingle;
+
+		if (maxA != 0 && minA != 0) {
+			maxABCpara = maxA;
+			minABCpara = minA;
+		}
+
+		if (maxABCpara <= maxB && maxB != 0 && minB != 0) {
+			maxABCpara = maxB;
+			minABCpara = minB;
+		}
+
+		if (maxABCpara <= maxC && maxC != 0 && minC != 0) {
+			maxABCpara = maxC;
+			minABCpara = minC;
+		}
+
+		maxABCall = maxA;
+		minABCall = minA;
+		
+		if (maxABCall < maxB) {
+			maxABCall = maxB;
+			minABCall = minB;
+		}
+		
+		if (maxABCall < maxC) {
+			maxABCall = maxC;
+			minABCall = minC;
+		}
+
+		suma = maxA + minA + maxB + minB + maxC + minC;
+
+		result = suma - maxABCpara + minABCpara;
+
+		if (maxABCall != maxABCpara & suma > maxABCpara + minABCpara
+				& suma - maxABCall < suma - maxABCpara + minABCpara) {
+			result = suma - maxABCall;
+		}
+
+		if (maxABCsingle != 0 & suma - maxABCsingle < suma - maxABCpara + minABCpara) {
+			result = suma - maxABCsingle;
+		}
+
+		return result;
+	}
+}
+
